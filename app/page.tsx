@@ -1,3 +1,11 @@
+import { SignInButton } from "@clerk/nextjs";
+import { SignUpButton } from "@clerk/nextjs";
+
 export default function Home() {
-  return <div className="text-green-600">Hello Pharmacy</div>;
+  return (
+    <div>
+      <SignUpButton mode="modal" />
+      <SignInButton mode="modal" />
+    </div>
+  );
 }
