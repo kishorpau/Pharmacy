@@ -5,6 +5,8 @@ import * as z from "zod";
 import { ShopSchema } from "@/schemas";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
+import { useToast } from "@/components/ui/use-toast";
+
 import {
   Form,
   FormControl,
@@ -19,6 +21,7 @@ const ShopPage = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
   const onSubmit = (values: z.infer<typeof ShopSchema>) => {
     setError("");
     setSuccess("");
@@ -36,6 +39,14 @@ const ShopPage = () => {
       password: "",
     },
   });
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    toast({
+      variant: "default",
+      title: "Details went successfully",
+      description: "Wait for the page to redirect",
+    });
+  };
   return (
     <div>
       <Form {...form}>
@@ -75,7 +86,9 @@ const ShopPage = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Register</Button>
+          <Button onClick={handleButtonClick} type="submit">
+            Register
+          </Button>
         </form>
       </Form>
     </div>
